@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.Todo;
 import utils.TodoMessage;
 
@@ -21,6 +22,9 @@ public class TaskController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TreeMap<Integer, Todo> mapTodos = new TreeMap<Integer, Todo>();
+        // HttpSession user =  req.getSession();
+        // user.getAttribute("");
+        // user.setAttribute(LEGACY_DO_HEAD, user);
         String search = req.getParameter("search");
         boolean conditionSearch = search != null && search != "";
         if (conditionSearch) {
