@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -47,8 +48,12 @@ public class TaskController extends HttpServlet {
                 }
             }
         }
-        req.setAttribute("todos", mapTodos);
-        req.getRequestDispatcher("hello.jsp").forward(req, resp);
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        out.print(Todo.toJson(mapTodos));
+        out.flush();
+        // req.setAttribute("todos", mapTodos);
+        // req.getRequestDispatcher("hello.jsp").forward(req, resp);
     }
 
     @Override
