@@ -1,11 +1,17 @@
 package controllers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,6 +19,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Todo;
+import models.TodoPost;
 import utils.TodoMessage;
 
 @WebServlet("/todo")
@@ -58,8 +65,18 @@ public class TaskController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String todo = req.getParameter("task");
-        todos.put(todos.size() == 0 ? todos.size() + 1 : todos.firstKey() + 1, new Todo(todo, new Date(), new Date()));
+        // String todo = req.getParameter("task");
+        // jsonObject.add("task", );
+
+        TodoPost todo = new Gson().fromJson(req.getReader(), TodoPost.class);
+        resp.setContentType("application/json");
+        // // System.out.println(todo.task);
+        // PrintWriter out = resp.getWriter();
+        // out.print(todo);
+        //  out.flush();
+        
+        
+        todos.put(todos.size() == 0 ? todos.size() + 1 : todos.firstKey() + 1, new Todo(todo.task, new Date(), new Date()));
         resp.sendRedirect(req.getContextPath() + "/todo");
     }
 

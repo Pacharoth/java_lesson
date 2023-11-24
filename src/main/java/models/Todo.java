@@ -17,7 +17,9 @@ public class Todo {
     public String task;
     public Date createdAt;
     public Date updatedAt;
-
+    public Todo(String task){
+        this.task=task;
+    }
     public Todo(String task, Date createdAt, Date updatedAt) {
         this.task = task;
         this.createdAt = createdAt;
