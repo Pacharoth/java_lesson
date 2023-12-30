@@ -33,7 +33,7 @@ public class Product {
     private Date createdAt;
     @UpdateTimestamp
     private Date updatedAt;
-    @OneToOne(mappedBy = "")
+    @OneToOne
     @MapsId
     @JoinColumn(name = "created_by")
     private User user;
