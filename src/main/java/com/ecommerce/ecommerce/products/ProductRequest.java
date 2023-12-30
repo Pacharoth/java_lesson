@@ -7,6 +7,13 @@ public class ProductRequest {
     private String description;
     private Date expireDate;
     private Float price;
+    private Integer userId;
+    public Integer getUserId() {
+        return userId;
+    }
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
     public String getName() {
         return name;
     }
