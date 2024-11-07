@@ -8,15 +8,29 @@
 </head>
 <body>
     <h1>Welcome to TP04 Task1</h1>
-    <form>
+    <h1 th:text="${variable}"></h1>
+    <table>
+      <thead>
+        <th>Id</th>
+        <th>Name</th>
+      </thead>
+      <tbody>
+        <tr th:each=" task: ${tasks}">
+          <td th:text="${task.getId()}"></td>
+          <td th:text="${task.getName()}"></td>
+          <td th:text="${task.getDescription()}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <form th:action="@{/TP04/savetask}" method="POST" th:object="${newTask}">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <input type="email" class="form-control" th:field="*{name}" id="exampleInputEmail1" aria-describedby="emailHelp">
           <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <input type="text" class="form-control" th:field="*{description}" id="exampleInputPassword1">
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
