@@ -1,0 +1,22 @@
+<div th:fragment="content-list">
+    <div class="d-flex ">
+        <a class="btn btn-primary ms-2" th:href="@{/products/form-create}">Create Product</a>
+        <a class="btn btn-warning" th:href="@{/products/form-create-support-image}">Create Product With Image</a>
+    </div>
+    <table >
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Image</th>
+        </thead>
+        <tbody th:each=" product : ${products}">
+            <tr>
+                <td th:text="${product.getId()}"></td>
+                <td th:text="${product.getName()}"></td>
+                <td>
+                    <img th:src="${product.getImage()}" alt="">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
