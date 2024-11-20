@@ -46,22 +46,23 @@ public class ProductController {
     }
 
     @PostMapping("/save-product")
-    public String saveProduct(@ModelAttribute @Valid ProductDTO productDTO, BindingResult bindingResult, Model model) throws IOException {
+    public String saveProduct(@Valid @ModelAttribute("productForm") ProductDTO productForm, BindingResult bindingResult, Model model) throws IOException {
         if(bindingResult.hasErrors()){
+            if(productForm.getImage().isEmpty()){
+                bindingResult.rejectValue("image", "error.productForm", "Image is required.");
+            }
             model.addAttribute("titleHeader", "Create Product");
             model.addAttribute("content", "fragments/form");
             return "products";
         }
-        if(productDTO.getImage().isEmpty()){
-            return "";
-        }
-        MultipartFile image = productDTO.getImage();
+      
+        MultipartFile image = productForm.getImage();
         String imageUrl = "";
         Path pathImage = Paths.get(pathUpload + image.getOriginalFilename());
         Files.createDirectories(pathImage.getParent());
         Files.write(pathImage, image.getBytes());
         imageUrl = "/files/" + image.getOriginalFilename();
-        productRepository.save(new ProductEntity(productDTO.getName(), productDTO.getPrice(), imageUrl));
+        productRepository.save(new ProductEntity(productForm.getName(), productForm.getPrice(), imageUrl));
 
         return "redirect:/";
     }

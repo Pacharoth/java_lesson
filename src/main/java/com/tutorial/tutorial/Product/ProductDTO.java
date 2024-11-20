@@ -5,12 +5,14 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class ProductDTO {
     @NotNull(message = "Please input name of product")
     @NotEmpty(message = "Product cannot be empty")
+    @Pattern(regexp = "^[A-Za-z ]+$",message = "Please input valid username")
     private String name;
-    @Min(1)
+    @ValidatePrice
     private double price;
     @NotNull(message = "Please upload file")
     private MultipartFile image;
